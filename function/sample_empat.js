@@ -52,9 +52,20 @@ const hitungOngkir = city => {
   return ongkir;
 };
 
-const hitungDiskon = harga => {
-  const hargaWithDiskon = harga * 0.1; // 10%
-  return hargaWithDiskon;
+const hitungDiskon = (harga, category) => {
+  let hargaDenganDiskon
+
+  if (category === 'Fashion'){
+    hargaDenganDiskon = harga * 0.4
+  } else if (category === 'Games'){
+    hargaDenganDiskon = harga * 0.15
+  } else if (category === 'Sport'){
+    hargaDenganDiskon = harga * 0.25
+  } else {
+    hargaDenganDiskon = harga * 0.5
+  }
+
+  return hargaDenganDiskon
 };
 
 const hitungTotalHargaBarang = (
@@ -71,9 +82,10 @@ dataBarang.map((item, idx) => {
   const namaBarang = item.name;
   const priceBarang = item.price;
   const city = item.city;
+  const kategori = item.category
 
   const pajakSaja = hitungPajak(priceBarang);
-  const diskonSaja = hitungDiskon(priceBarang);
+  const diskonSaja = hitungDiskon(priceBarang, kategori);
   const ongkirSaja = hitungOngkir(city);
   const totalHargaBarang = hitungTotalHargaBarang(
     priceBarang,
@@ -82,5 +94,10 @@ dataBarang.map((item, idx) => {
     diskonSaja
   );
 
-  console.log(`${namaBarang} total harganya ${totalHargaBarang}`)
+  console.log(`${namaBarang} ${kategori} total harganya ${totalHargaBarang}`)
 });
+
+
+// Challenge
+// Pembagian diskon: Fashion diskon 40%, Games diskon 15%, Sport diskon 25%, 
+// selain itu diskon 5%
